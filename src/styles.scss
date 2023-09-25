@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+// font
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Cinzel&family=Courgette&family=Indie+Flower&family=Josefin+Sans&family=Libre+Baskerville&family=Orbitron&family=Rajdhani&family=Saira&family=Space+Mono&family=Ubuntu&display=swap");
+
+* {
+  /* WebKit */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+html {
+  height: 100%;
+  overflow: auto;
+}
+
+body {
+  height: 100%;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Oxygen, Cantarell, sans-serif;
+  background-color: #ffffff;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}

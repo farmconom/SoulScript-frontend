@@ -1,0 +1,96 @@
+<section class="background">
+  <div class="section">
+    <div class="container">
+      <div class="row full-height justify-content-center">
+        <div class="col-12 text-center align-self-center py-5">
+          <div class="section pb-5 pt-5 pt-sm-2 text-center">
+            <input
+              #toggleCard
+              class="checkbox"
+              type="checkbox"
+              id="reg-log"
+              name="reg-log"
+            />
+            <div class="card-3d-wrap mx-auto">
+              <div class="card-3d-wrapper">
+                <div class="card-front">
+                  <div class="center-wrap">
+                    <div class="section text-center">
+                      <h1 class="mb-4 pb-3 display-3" style="font-weight: 500;">Soul Script</h1>
+                      <div class="form-group">
+                        <input
+                          type="email"
+                          class="form-style"
+                          placeholder="Email"
+                        />
+                        <i class="input-icon fa-regular fa-envelope"></i>
+                      </div>
+                      <div class="form-group mt-2">
+                        <input
+                          type="password"
+                          class="form-style"
+                          placeholder="Password"
+                        />
+                        <i class="input-icon fa-solid fa-lock"></i>
+                      </div>
+                      <a class="btn mt-4"
+                        >Login</a
+                      >
+                      <p class="mb-0 mt-4 text-center">
+                        <span class="link cursor-pointer" (click)="redirectTo('public/auth/forgot-password')"
+                          >Forgot your password?</span
+                        >
+                      </p>
+                      <div class="mt-2" style="font-size: .9rem;">
+                        <small>Don't have an account? </small>
+                        <small class="link cursor-pointer" (click)="toggle()">Sign up here</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-back">
+                  <div class="center-wrap">
+                    <div class="section text-center">
+                      <h1 class="mb-3 pb-3">Sign Up</h1>
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-style"
+                          placeholder="User Name"
+                        />
+                        <i class="input-icon fa-solid fa-user"></i>
+                      </div>
+                      <div class="form-group mt-2">
+                        <input
+                          type="email"
+                          class="form-style"
+                          placeholder="Email"
+                        />
+                        <i class="input-icon fa-regular fa-envelope"></i>
+                      </div>
+                      <div class="form-group mt-2">
+                        <input
+                          type="password"
+                          class="form-style"
+                          placeholder="Password"
+                        />
+                        <i class="input-icon fa-solid fa-lock"></i>
+                      </div>
+                      <a class="btn mt-4"
+                        >Register</a
+                      >
+                      <div class="mt-2" style="font-size: .9rem;">
+                        <small>Already have an account? </small>
+                        <small class="link cursor-pointer" (click)="toggle()">Sign in here</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
