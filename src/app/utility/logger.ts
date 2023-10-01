@@ -44,7 +44,12 @@ export class Logger {
   }
 
   // eslint-disable-next-line
-  private log(func: (...args: any[]) => void, level: LogLevel, objects: any[], color?: string) {
+  private log(
+    func: (...args: any[]) => void,
+    level: LogLevel,
+    objects: any[],
+    color?: string,
+  ) {
     if (level <= Logger.level) {
       let log = this.source
         ? ['[' + this.source + ']'].concat(objects)
