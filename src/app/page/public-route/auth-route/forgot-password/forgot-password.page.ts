@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'forgot-password',
@@ -9,11 +9,22 @@ import { Router } from '@angular/router';
 })
 export class ForgotPasswordPage implements OnInit{
   forgotPasswordForm: FormGroup;
+  isPageLoaded = false;
+  isNavigatingToAnotherPage = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     ) {
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.isNavigatingToAnotherPage = true;
+        } else if (event instanceof NavigationEnd) {
+          this.isNavigatingToAnotherPage = false;
+          this.isPageLoaded = true;
+        }
+      });
+
       this.forgotPasswordForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
       });
@@ -24,6 +35,7 @@ export class ForgotPasswordPage implements OnInit{
 
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
+      this.router.navigate(['public/auth/reset-password']);
       // const email = this.forgotPasswordForm.get('email').value;
 
       // Implement logic to send a password reset link to the provided email
