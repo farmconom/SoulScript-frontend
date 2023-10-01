@@ -4,14 +4,12 @@ import { Logger } from 'src/app/utility/logger';
 const log = new Logger('collections.page');
 
 @Component({
-  selector: 'dashboard-page',
+  selector: 'app-dashboard-page',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardPage implements OnInit{
-
+export class DashboardPage implements OnInit {
   ngOnInit(): void {
-    log.info('main page')
+    log.info('main page');
   }
-
 }

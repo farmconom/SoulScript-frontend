@@ -9,16 +9,7 @@ import { ResetPasswordPage } from './reset-password/reset-password.page';
 import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-  declarations: [
-    SignInPage,
-    ForgotPasswordPage,
-    ResetPasswordPage
-  ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    ReactiveFormsModule,
-    ToastModule
-  ]
+  declarations: [SignInPage, ForgotPasswordPage, ResetPasswordPage],
+  imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, ToastModule],
 })
-export class AuthModule { }
+export class AuthModule {}

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
-  selector: 'not-found-page',
+  selector: 'app-not-found-page',
   templateUrl: './not-found-page.component.html',
   styleUrls: ['./not-found-page.component.scss'],
 })

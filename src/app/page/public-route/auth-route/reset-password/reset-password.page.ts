@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +18,10 @@ export class ResetPasswordPage {
   isPageLoaded = false;
   isNavigatingToAnotherPage = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+  ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.isNavigatingToAnotherPage = true;
@@ -24,13 +32,7 @@ export class ResetPasswordPage {
     });
 
     this.resetPasswordForm = this.fb.group({
-      newPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-        ],
-      ],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmNewPassword: [
         '',
         [
@@ -42,19 +44,20 @@ export class ResetPasswordPage {
     });
   }
 
-  ngOnInit() {}
-
   matchPasswords(control: AbstractControl): { [key: string]: boolean } | null {
     const newPassword = control.parent?.get('newPassword');
     const confirmPassword = control.parent?.get('confirmNewPassword');
 
-    if (newPassword && confirmPassword && (newPassword.value !== confirmPassword.value)) {
+    if (
+      newPassword &&
+      confirmPassword &&
+      newPassword.value !== confirmPassword.value
+    ) {
       return { passwordMismatch: true };
     }
 
     return null;
   }
-
 
   onSubmit() {
     this.isSubmit = true;

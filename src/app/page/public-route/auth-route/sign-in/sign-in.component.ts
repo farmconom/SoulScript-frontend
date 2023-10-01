@@ -1,13 +1,18 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'sign-in',
+  selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class SignInPage {
   @ViewChild('toggleCard', { static: false }) toggleCard!: ElementRef;
@@ -19,7 +24,7 @@ export class SignInPage {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -36,10 +41,24 @@ export class SignInPage {
     });
 
     this.registerForm = this.fb.group({
-      registerUserName: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z0-9_]+$/)]],
+      registerUserName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern(/^[a-zA-Z0-9_]+$/),
+        ],
+      ],
       registerEmail: ['', [Validators.required, Validators.email]],
       registerPassword: ['', [Validators.required, Validators.minLength(8)]],
-      registerConfirmPassword: ['', [Validators.required, Validators.minLength(8), this.matchPasswords.bind(this)]],
+      registerConfirmPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          this.matchPasswords.bind(this),
+        ],
+      ],
     });
   }
 
@@ -47,7 +66,11 @@ export class SignInPage {
     const password = control.parent?.get('registerPassword');
     const confirmPassword = control.parent?.get('registerConfirmPassword');
 
-    if (password && confirmPassword && (password.value !== confirmPassword.value)) {
+    if (
+      password &&
+      confirmPassword &&
+      password.value !== confirmPassword.value
+    ) {
       return { passwordMismatch: true };
     }
 
@@ -101,7 +124,9 @@ export class SignInPage {
         this.showToast('User name is required.');
       }
       if (this.registerForm.get('registerUserName')?.errors?.['minlength']) {
-        this.showToast('Your User name must be a minimum of 2 characters long.');
+        this.showToast(
+          'Your User name must be a minimum of 2 characters long.',
+        );
       }
       if (this.registerForm.get('registerUserName')?.hasError('pattern')) {
         this.showToast('Special characters are not allowed.');
@@ -118,13 +143,23 @@ export class SignInPage {
       if (this.registerForm.get('registerPassword')?.hasError('required')) {
         this.showToast('Password is required.');
       }
-      if (this.registerForm.get('registerConfirmPassword')?.hasError('required')) {
+      if (
+        this.registerForm.get('registerConfirmPassword')?.hasError('required')
+      ) {
         this.showToast('Confirm password is required.');
       }
-      if (this.registerForm.get('registerConfirmPassword')?.errors?.['minlength']) {
-        this.showToast('Your confirm password must be a minimum of 8 characters long.');
+      if (
+        this.registerForm.get('registerConfirmPassword')?.errors?.['minlength']
+      ) {
+        this.showToast(
+          'Your confirm password must be a minimum of 8 characters long.',
+        );
       }
-      if (this.registerForm.get('registerConfirmPassword')?.errors?.['passwordMismatch']) {
+      if (
+        this.registerForm.get('registerConfirmPassword')?.errors?.[
+          'passwordMismatch'
+        ]
+      ) {
         this.showToast('Please make sure your passwords match.');
       }
     }

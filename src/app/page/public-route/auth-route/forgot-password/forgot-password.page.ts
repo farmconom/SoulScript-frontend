@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
-  selector: 'forgot-password',
+  selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
   styleUrls: ['./forgot-password.page.scss'],
 })
-export class ForgotPasswordPage implements OnInit{
+export class ForgotPasswordPage {
   forgotPasswordForm: FormGroup;
   isPageLoaded = false;
   isNavigatingToAnotherPage = false;
@@ -15,22 +15,19 @@ export class ForgotPasswordPage implements OnInit{
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    ) {
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationStart) {
-          this.isNavigatingToAnotherPage = true;
-        } else if (event instanceof NavigationEnd) {
-          this.isNavigatingToAnotherPage = false;
-          this.isPageLoaded = true;
-        }
-      });
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.isNavigatingToAnotherPage = true;
+      } else if (event instanceof NavigationEnd) {
+        this.isNavigatingToAnotherPage = false;
+        this.isPageLoaded = true;
+      }
+    });
 
-      this.forgotPasswordForm = this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-      });
-    }
-
-  ngOnInit() {
+    this.forgotPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+    });
   }
 
   onSubmit() {
@@ -45,7 +42,7 @@ export class ForgotPasswordPage implements OnInit{
   }
 
   redirectTo(url: string) {
-    if(url) {
+    if (url) {
       this.router.navigate([url]);
     }
   }

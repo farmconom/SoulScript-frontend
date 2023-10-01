@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'secure-page',
+  selector: 'app-secure-page',
   templateUrl: './secure.page.html',
-  styleUrls: ['./secure.page.scss']
+  styleUrls: ['./secure.page.scss'],
 })
-export class SecurePage {
-
-}
+export class SecurePage {}
