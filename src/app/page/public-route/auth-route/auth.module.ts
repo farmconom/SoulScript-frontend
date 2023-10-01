@@ -6,7 +6,7 @@ import { SignInPage } from './sign-in/sign-in.component';
 import { ForgotPasswordPage } from './forgot-password/forgot-password.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordPage } from './reset-password/reset-password.page';
-
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { ResetPasswordPage } from './reset-password/reset-password.page';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastModule
   ]
 })
 export class AuthModule { }

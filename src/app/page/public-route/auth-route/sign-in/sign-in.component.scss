@@ -1,7 +1,7 @@
 .background {
   background-image: url("../../../../../assets/images/singin-bg.png");
   background-size: cover;
-  background-position: center right 25%;
+  background-position: center right 31%;
 }
 
 a:hover {
@@ -94,11 +94,11 @@ h6 span {
 .card-back {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   position: absolute;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;

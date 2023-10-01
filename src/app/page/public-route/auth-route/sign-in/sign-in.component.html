@@ -1,4 +1,7 @@
-<section class="background" [ngClass]="{'fade-in': isPageLoaded, 'fade-out': isNavigatingToAnotherPage}">
+<section
+  class="background"
+  [ngClass]="{ 'fade-in': isPageLoaded, 'fade-out': isNavigatingToAnotherPage }"
+>
   <div class="section">
     <div class="container">
       <div class="row full-height justify-content-center">
@@ -16,35 +19,46 @@
                 <div class="card-front">
                   <div class="center-wrap px-sm-4 px-3">
                     <div class="section text-center">
-                      <h1 class="mb-4 pb-3 display-3" style="font-weight: 500;">Soul Script</h1>
-                      <div class="form-group">
-                        <input
-                          type="email"
-                          class="form-style"
-                          placeholder="Email"
-                        />
-                        <i class="input-icon fa-regular fa-envelope"></i>
-                      </div>
-                      <div class="form-group mt-2">
-                        <input
-                          type="password"
-                          class="form-style"
-                          placeholder="Password"
-                        />
-                        <i class="input-icon fa-solid fa-lock"></i>
-                      </div>
-                      <a class="btn mt-4"
-                        >Login</a
+                      <h1 class="mb-4 pb-3 display-3" style="font-weight: 500">
+                        Soul Script
+                      </h1>
+                      <form
+                        [formGroup]="loginForm"
+                        (ngSubmit)="onLoginSubmit()"
                       >
-                      <p class="mb-0 mt-4 text-center">
-                        <span class="link cursor-pointer" (click)="redirectTo('public/auth/forgot-password')"
-                          >Forgot your password?</span
-                        >
-                      </p>
-                      <div class="mt-2" style="font-size: .9rem;">
-                        <small>Don't have an account? </small>
-                        <small class="link cursor-pointer" (click)="toggle()">Sign up here</small>
-                      </div>
+                        <div class="form-group">
+                          <input
+                            type="email"
+                            class="form-style"
+                            placeholder="Email"
+                            formControlName="loginEmail"
+                          />
+                          <i class="input-icon fa-regular fa-envelope"></i>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input
+                            type="password"
+                            class="form-style"
+                            placeholder="Password"
+                            formControlName="loginPassword"
+                          />
+                          <i class="input-icon fa-solid fa-lock"></i>
+                        </div>
+                        <button type="submit" class="btn mt-4">Login</button>
+                        <p class="mb-0 mt-4 text-center">
+                          <span
+                            class="link cursor-pointer"
+                            (click)="redirectTo('public/auth/forgot-password')"
+                            >Forgot your password?</span
+                          >
+                        </p>
+                        <div class="mt-2" style="font-size: 0.9rem">
+                          <small>Don't have an account? </small>
+                          <small class="link cursor-pointer" (click)="toggle()"
+                            >Sign up here</small
+                          >
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -52,37 +66,54 @@
                   <div class="center-wrap px-sm-4 px-3">
                     <div class="section text-center">
                       <h1 class="mb-3 pb-3">Sign Up</h1>
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-style"
-                          placeholder="User Name"
-                        />
-                        <i class="input-icon fa-solid fa-user"></i>
-                      </div>
-                      <div class="form-group mt-2">
-                        <input
-                          type="email"
-                          class="form-style"
-                          placeholder="Email"
-                        />
-                        <i class="input-icon fa-regular fa-envelope"></i>
-                      </div>
-                      <div class="form-group mt-2">
-                        <input
-                          type="password"
-                          class="form-style"
-                          placeholder="Password"
-                        />
-                        <i class="input-icon fa-solid fa-lock"></i>
-                      </div>
-                      <a class="btn mt-4"
-                        >Register</a
+                      <form
+                        [formGroup]="registerForm"
+                        (ngSubmit)="onRegisterSubmit()"
                       >
-                      <div class="mt-2" style="font-size: .9rem;">
-                        <small>Already have an account? </small>
-                        <small class="link cursor-pointer" (click)="toggle()">Sign in here</small>
-                      </div>
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            class="form-style"
+                            placeholder="User Name"
+                            formControlName="registerUserName"
+                          />
+                          <i class="input-icon fa-solid fa-user"></i>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input
+                            type="email"
+                            class="form-style"
+                            placeholder="Email"
+                            formControlName="registerEmail"
+                          />
+                          <i class="input-icon fa-regular fa-envelope"></i>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input
+                            type="password"
+                            class="form-style"
+                            placeholder="Password"
+                            formControlName="registerPassword"
+                          />
+                          <i class="input-icon fa-solid fa-lock"></i>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input
+                            type="password"
+                            class="form-style"
+                            placeholder="Confirm Password"
+                            formControlName="registerConfirmPassword"
+                          />
+                          <i class="input-icon fa-solid fa-circle-check"></i>
+                        </div>
+                        <button type="submit" class="btn mt-4">Register</button>
+                        <div class="mt-2" style="font-size: 0.9rem">
+                          <small>Already have an account? </small>
+                          <small class="link cursor-pointer" (click)="toggle()"
+                            >Sign in here</small
+                          >
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -94,3 +125,7 @@
     </div>
   </div>
 </section>
+<p-toast
+  [life]="8000"
+  [breakpoints]="{ '475px': { width: '90%', right: '1rem' } }"
+></p-toast>
