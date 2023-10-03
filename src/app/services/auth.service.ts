@@ -41,7 +41,7 @@ export class AuthService {
         this.SetUserState(result.user);
       })
       .catch((error) => {
-        log.error(error);
+        return error;
       });
   }
 
@@ -57,7 +57,7 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        log.error(error);
+        return error;
       });
   }
 
@@ -87,14 +87,15 @@ export class AuthService {
       });
   }
 
+  get getUserState() {
+    return this.userState;
+  }
+
   get isLoggedIn(): boolean {
     const userJSON = localStorage.getItem('user');
-    if (userJSON === null) {
-      return false;
-    }
-
-    const user = JSON.parse(userJSON);
-    return !!user && user.emailVerified !== false;
+    // const user = JSON.parse(userJSON);
+    // return !!user && user.emailVerified !== false;
+    return userJSON && userJSON !== 'null' ? true : false;
   }
 
   SetUserState(user: firebase.default.User | null) {
@@ -116,7 +117,7 @@ export class AuthService {
   async SignOut() {
     return this.firebaseAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['/public/auth/sign-in']);
+      this.router.navigate(['/public']);
     });
   }
 }

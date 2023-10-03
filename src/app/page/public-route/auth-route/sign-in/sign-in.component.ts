@@ -7,6 +7,10 @@ import {
 } from '@angular/forms';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
+import { Logger } from 'src/app/utility/logger';
+
+const log = new Logger('sign-in.component');
 
 @Component({
   selector: 'app-sign-in',
@@ -16,15 +20,18 @@ import { MessageService } from 'primeng/api';
 })
 export class SignInPage {
   @ViewChild('toggleCard', { static: false }) toggleCard!: ElementRef;
-  isPageLoaded = false;
+  isPageLoaded = true;
   isNavigatingToAnotherPage = false;
   loginForm: FormGroup;
   registerForm: FormGroup;
+  isLoginLoading = false;
+  isSignUpLoading = false;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private messageService: MessageService,
+    private auth: AuthService,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -87,71 +94,107 @@ export class SignInPage {
     }
   }
 
-  onLoginSubmit() {
+  async onLoginSubmit() {
     if (this.loginForm.valid) {
-      this.router.navigate(['/']);
-      // const email = this.forgotPasswordForm.get('email').value;
+      try {
+        this.isLoginLoading = true;
+        const email = this.loginForm.get('loginEmail')?.value;
+        const password = this.loginForm.get('loginPassword')?.value;
 
-      // Implement logic to send a password reset link to the provided email
-      // You can use a service to make an HTTP request to your backend for this functionality
-      // Example: this.authService.sendPasswordResetLink(email).subscribe(...)
+        await this.auth
+          .SignInWithEmailPassword(email, password)
+          .then((invalid) => {
+            if (invalid) {
+              this.showErrorToast('Wrong Email or password.');
+            } else {
+              this.router.navigate(['/']);
+            }
+          })
+          .catch(() => {
+            this.showErrorToast('Wrong Email or password.');
+          });
+      } catch (error) {
+        log.error(error);
+      } finally {
+        this.isLoginLoading = false;
+      }
     } else {
       if (this.loginForm.get('loginEmail')?.hasError('required')) {
-        this.showToast('Email is required.');
+        this.showErrorToast('Email is required.');
       }
       if (this.loginForm.get('loginEmail')?.hasError('email')) {
-        this.showToast('Invalid email format.');
+        this.showErrorToast('Invalid email format.');
       }
       if (this.loginForm.get('loginPassword')?.hasError('required')) {
-        this.showToast('Password is required.');
+        this.showErrorToast('Password is required.');
       }
       if (this.loginForm.get('loginPassword')?.errors?.['minlength']) {
-        this.showToast('Your password must be a minimum of 8 characters long.');
+        this.showErrorToast(
+          'Your password must be a minimum of 8 characters long.',
+        );
       }
     }
   }
 
-  onRegisterSubmit() {
+  async onRegisterSubmit() {
     if (this.registerForm.valid) {
-      this.router.navigate(['/']);
-      // const email = this.forgotPasswordForm.get('email').value;
+      try {
+        this.isSignUpLoading = true;
+        const email = this.registerForm.get('registerEmail')?.value;
+        const password = this.registerForm.get('registerPassword')?.value;
 
-      // Implement logic to send a password reset link to the provided email
-      // You can use a service to make an HTTP request to your backend for this functionality
-      // Example: this.authService.sendPasswordResetLink(email).subscribe(...)
+        await this.auth
+          .SignUp(email, password)
+          .then((result) => {
+            if (result) {
+              this.showErrorToast('Invalid email format.');
+            } else {
+              this.router.navigate(['/']);
+            }
+          })
+          .catch((error) => {
+            log.error(error);
+          });
+      } catch (error) {
+        log.error(error);
+      } finally {
+        this.isSignUpLoading = false;
+      }
     } else {
       if (this.registerForm.get('registerUserName')?.hasError('required')) {
-        this.showToast('User name is required.');
+        this.showErrorToast('User name is required.');
       }
       if (this.registerForm.get('registerUserName')?.errors?.['minlength']) {
-        this.showToast(
+        this.showErrorToast(
           'Your User name must be a minimum of 2 characters long.',
         );
       }
       if (this.registerForm.get('registerUserName')?.hasError('pattern')) {
-        this.showToast('Special characters are not allowed.');
+        this.showErrorToast('Special characters are not allowed.');
       }
       if (this.registerForm.get('registerEmail')?.hasError('required')) {
-        this.showToast('Email is required.');
+        this.showErrorToast('Email is required.');
       }
       if (this.registerForm.get('registerEmail')?.hasError('email')) {
-        this.showToast('Invalid email format.');
+        this.showErrorToast('Invalid email format.');
       }
       if (this.registerForm.get('registerPassword')?.errors?.['minlength']) {
-        this.showToast('Your password must be a minimum of 8 characters long.');
+        this.showErrorToast(
+          'Your password must be a minimum of 8 characters long.',
+        );
       }
       if (this.registerForm.get('registerPassword')?.hasError('required')) {
-        this.showToast('Password is required.');
+        this.showErrorToast('Password is required.');
       }
       if (
         this.registerForm.get('registerConfirmPassword')?.hasError('required')
       ) {
-        this.showToast('Confirm password is required.');
+        this.showErrorToast('Confirm password is required.');
       }
       if (
         this.registerForm.get('registerConfirmPassword')?.errors?.['minlength']
       ) {
-        this.showToast(
+        this.showErrorToast(
           'Your confirm password must be a minimum of 8 characters long.',
         );
       }
@@ -160,12 +203,12 @@ export class SignInPage {
           'passwordMismatch'
         ]
       ) {
-        this.showToast('Please make sure your passwords match.');
+        this.showErrorToast('Please make sure your passwords match.');
       }
     }
   }
 
-  showToast(massage: string) {
+  showErrorToast(massage: string) {
     this.messageService.add({
       severity: 'error',
       summary: 'Warning',

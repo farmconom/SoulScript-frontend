@@ -8,11 +8,11 @@ a:hover {
   text-decoration: none;
 }
 .link {
-  color: #ffeba7!important;
-  transition: all .2s;
+  color: #ffeba7 !important;
+  transition: all 0.2s;
 }
 .link:hover {
-  color: #c4c3ca!important;
+  color: #c4c3ca !important;
 }
 p {
   font-weight: 500;
@@ -106,24 +106,24 @@ h6 span {
 .card-back {
   transform: rotateY(180deg);
   opacity: 0;
-  transition-delay: .2s;
+  transition-delay: 0.2s;
   z-index: 0;
 }
 .card-front {
   opacity: 1;
-  transition-delay: .2s;
+  transition-delay: 0.2s;
   z-index: 1;
 }
 .checkbox:checked ~ .card-3d-wrap .card-3d-wrapper {
   transform: rotateY(180deg);
   .card-back {
     opacity: 1;
-    transition-delay: .2s;
+    transition-delay: 0.2s;
     z-index: 1;
   }
   .card-front {
     opacity: 0;
-    transition-delay: .2s;
+    transition-delay: 0.2s;
     z-index: 0;
   }
 }
@@ -156,8 +156,6 @@ h6 span {
   color: #c4c3ca;
   background-color: #1f2029;
   border: none;
-  -webkit-transition: all 200ms linear;
-  transition: all 200ms linear;
   box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
 }
 .form-style:focus,
@@ -192,11 +190,22 @@ h6 span {
   display: -ms-inline-flexbox;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   background-color: #ffeba7;
   color: #000000;
+  min-width: 108px;
 }
 .btn:hover {
   background-color: #000000;
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}
+
+:host input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #1f2029 inset;
+  -webkit-text-fill-color: #c4c3ca;
+}
+:host input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #1f2029 inset;
+  -webkit-text-fill-color: #c4c3ca;
 }

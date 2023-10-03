@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoggedIn } from './guard/loggedIn.guard';
+import { NoLoggedIn } from './guard/noLoggedIn.guard';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
     path: 'public',
     loadChildren: () =>
       import('./page/public-route/public.module').then((m) => m.PublicModule),
+    canActivate: [NoLoggedIn],
   },
   {
     path: '404',

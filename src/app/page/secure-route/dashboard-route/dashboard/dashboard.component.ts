@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { Logger } from 'src/app/utility/logger';
 
 const log = new Logger('collections.page');
@@ -9,11 +10,16 @@ const log = new Logger('collections.page');
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardPage implements OnInit {
-  isPageLoaded = false;
+export class DashboardPage implements OnInit, AfterViewChecked {
+  isPageLoaded = true;
   isNavigatingToAnotherPage = false;
 
-  constructor(private router: Router) {
+  private hasLogged = false;
+
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+  ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.isNavigatingToAnotherPage = true;
@@ -23,8 +29,18 @@ export class DashboardPage implements OnInit {
       }
     });
   }
+  ngAfterViewChecked(): void {
+    if (!this.hasLogged && this.auth.getUserState) {
+      log.info('User State: ', this.auth.getUserState);
+      this.hasLogged = true;
+    }
+  }
 
   ngOnInit(): void {
-    log.info('main page');
+    log.debug('Log In Success');
+  }
+
+  logOut() {
+    this.auth.SignOut();
   }
 }

@@ -15,7 +15,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 export class ResetPasswordPage {
   resetPasswordForm: FormGroup;
   isSubmit = false;
-  isPageLoaded = false;
+  isPageLoaded = true;
   isNavigatingToAnotherPage = false;
 
   constructor(

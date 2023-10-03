@@ -9,7 +9,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 })
 export class ForgotPasswordPage {
   forgotPasswordForm: FormGroup;
-  isPageLoaded = false;
+  isPageLoaded = true;
   isNavigatingToAnotherPage = false;
 
   constructor(

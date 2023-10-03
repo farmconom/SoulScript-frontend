@@ -7,7 +7,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
   styleUrls: ['./not-found-page.component.scss'],
 })
 export class NotFoundPage {
-  isPageLoaded = false;
+  isPageLoaded = true;
   isNavigatingToAnotherPage = false;
 
   constructor(private router: Router) {
