@@ -1,13 +1,13 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { JwtGuard } from './guard/jwt.guard';
+import { LoggedIn } from './guard/loggedIn.guard';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
       import('./page/secure-route/secure.module').then((m) => m.SecureModule),
-    canActivate: [JwtGuard],
+    canActivate: [LoggedIn],
   },
   {
     path: 'public',
@@ -27,6 +27,5 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppRoutingModule {}
