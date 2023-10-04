@@ -49,7 +49,7 @@
                           class="btn mt-4"
                           [ngStyle]="
                             isLoginLoading
-                              ? { 'letter-spacing': '0' }
+                              ? { 'letter-spacing': '0px' }
                               : { 'letter-spacing': '1px' }
                           "
                         >
@@ -130,7 +130,7 @@
                           class="btn mt-4"
                           [ngStyle]="
                             isSignUpLoading
-                              ? { 'letter-spacing': '0' }
+                              ? { 'letter-spacing': '0px' }
                               : { 'letter-spacing': '1px' }
                           "
                         >
@@ -163,3 +163,99 @@
   [life]="8000"
   [breakpoints]="{ '475px': { width: '90%', right: '1rem' } }"
 ></p-toast>
+
+<!-- verify email -->
+<p-dialog
+  header="Header"
+  [(visible)]="toggleVerifyEmailDialog"
+  [closable]="false"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template pTemplate="header">
+    <h4 class="text-xl font-bold text-danger">Please verify your email</h4>
+  </ng-template>
+
+  <span class="text-center">
+    To continue , please verify your email address:
+    <span class="text-danger">{{ userEmail }}</span>
+  </span>
+
+  <ng-template pTemplate="footer">
+    <div class="w-100 d-flex justify-content-between align-items-center">
+      <p-button
+        [disabled]="isSendVerifyEmail"
+        styleClass="p-button-secondary p-button-text"
+        (click)="getSendNewVerificationEmail()"
+      >
+        <small
+          class="text-secondary d-flex justify-content-center align-items-center"
+          style="left: 0"
+        >
+          <i class="pi pi-undo me-2"></i>
+          Resend Verification Email
+        </small>
+      </p-button>
+
+      <p-button
+        [disabled]="isSendVerifyEmail"
+        icon="pi pi-check"
+        (click)="toggleVerifyEmailDialog = false"
+        label="Ok"
+        styleClass="p-button-sm p-button-danger"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- sing up SUCCESS -->
+<p-dialog
+  header="Header"
+  [(visible)]="toggleSuccessSignUpDialog"
+  [closable]="false"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template pTemplate="header">
+    <h4 class="text-xl font-bold text-success">SUCCESS</h4>
+  </ng-template>
+  <span class="text-center">
+    Congratulations, your account has been successfully created.<br /><br />
+    To continue ,
+    <span
+      >please verify your email address:
+      <span class="text-success">{{ userEmail }}</span></span
+    >
+  </span>
+  <ng-template pTemplate="footer">
+    <div class="w-100 d-flex justify-content-between align-items-center">
+      <p-button
+        [disabled]="isSendVerifyEmail"
+        styleClass="p-button-secondary p-button-text"
+        (click)="getSendNewVerificationEmail()"
+      >
+        <small
+          class="text-secondary d-flex justify-content-center align-items-center"
+          style="left: 0"
+        >
+          <i class="pi pi-undo me-2"></i>
+          Resend Verification Email
+        </small>
+      </p-button>
+
+      <p-button
+        [disabled]="isSendVerifyEmail"
+        icon="pi pi-check"
+        (click)="closeSuccessSignUpDialog()"
+        label="Ok"
+        styleClass="p-button-text"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

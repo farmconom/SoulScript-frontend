@@ -26,6 +26,10 @@ export class SignInPage {
   registerForm: FormGroup;
   isLoginLoading = false;
   isSignUpLoading = false;
+  isSendVerifyEmail = false;
+  toggleVerifyEmailDialog = false;
+  toggleSuccessSignUpDialog = false;
+  userEmail: string | undefined;
 
   constructor(
     private router: Router,
@@ -107,7 +111,12 @@ export class SignInPage {
             if (invalid) {
               this.showErrorToast('Wrong Email or password.');
             } else {
-              this.router.navigate(['/']);
+              if (this.auth.isLoggedIn.emailVerified) {
+                this.router.navigate(['/']);
+              } else {
+                this.userEmail = email;
+                this.toggleVerifyEmailDialog = true;
+              }
             }
           })
           .catch(() => {
@@ -146,10 +155,16 @@ export class SignInPage {
         await this.auth
           .SignUp(email, password)
           .then((result) => {
-            if (result) {
+            if (result && result.code === 'auth/email-already-in-use') {
+              this.showErrorToast(
+                'The email address is already in use by another account.',
+              );
+            } else if (result) {
               this.showErrorToast('Invalid email format.');
             } else {
-              this.router.navigate(['/']);
+              this.userEmail = email;
+              this.auth.sendNewVerificationEmail;
+              this.toggleSuccessSignUpDialog = true;
             }
           })
           .catch((error) => {
@@ -214,5 +229,37 @@ export class SignInPage {
       summary: 'Warning',
       detail: massage,
     });
+  }
+
+  showSuccessToast(massage: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: massage,
+    });
+  }
+
+  async getSendNewVerificationEmail() {
+    this.isSendVerifyEmail = true;
+
+    await this.auth
+      .sendNewVerificationEmail()
+      .then(() => {
+        if (this.auth.isTooManyReqSendVerifyEmail === true) {
+          this.isSendVerifyEmail = false;
+          this.showErrorToast('Too many requests');
+        } else {
+          this.showSuccessToast('Send new verification email successful');
+          this.isSendVerifyEmail = false;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  closeSuccessSignUpDialog() {
+    this.toggleSuccessSignUpDialog = false;
+    window.location.reload();
   }
 }

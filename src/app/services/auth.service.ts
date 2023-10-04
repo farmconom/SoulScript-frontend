@@ -16,6 +16,7 @@ const log = new Logger('auth.service');
 })
 export class AuthService {
   userState: firebase.default.User | null = null;
+  isTooManyReqSendVerifyEmail = false;
 
   constructor(
     private firebaseAuth: AngularFireAuth, // Inject Firebase auth service
@@ -91,11 +92,13 @@ export class AuthService {
     return this.userState;
   }
 
-  get isLoggedIn(): boolean {
+  get isLoggedIn() {
     const userJSON = localStorage.getItem('user');
-    // const user = JSON.parse(userJSON);
-    // return !!user && user.emailVerified !== false;
-    return userJSON && userJSON !== 'null' ? true : false;
+    const user = userJSON ? JSON.parse(userJSON) : undefined;
+    return {
+      loggedIn: !!userJSON && userJSON !== 'null' ? true : false,
+      emailVerified: user ? user.emailVerified : false,
+    };
   }
 
   SetUserState(user: firebase.default.User | null) {
@@ -112,6 +115,19 @@ export class AuthService {
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  async sendNewVerificationEmail() {
+    try {
+      const user = await this.firebaseAuth.currentUser;
+      if (user) {
+        await user.sendEmailVerification();
+      } else {
+        log.debug('User is null.');
+      }
+    } catch (error) {
+      this.isTooManyReqSendVerifyEmail = true;
+    }
   }
 
   async SignOut() {

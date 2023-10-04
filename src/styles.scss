@@ -4,7 +4,7 @@
 @import "primeicons/primeicons.css";
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 
 // font
 @import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Cinzel&family=Courgette&family=Indie+Flower&family=Josefin+Sans&family=Libre+Baskerville&family=Orbitron&family=Rajdhani&family=Saira&family=Space+Mono&family=Ubuntu&display=swap");
@@ -32,8 +32,17 @@ html {
 
 body {
   height: 100%;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", Oxygen, Cantarell, sans-serif;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Ubuntu,
+    "Helvetica Neue",
+    Oxygen,
+    Cantarell,
+    sans-serif;
   background-color: #333;
 }
 
@@ -73,4 +82,12 @@ body {
 
 .p-toast-detail {
   font-size: 14px;
+}
+
+.p-button {
+  border-radius: 6px;
+}
+
+.p-overflow-hidden {
+  padding-right: 0;
 }

@@ -12,7 +12,10 @@ export class LoggedIn implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    if (!this.authService.isLoggedIn) {
+    if (
+      !this.authService.isLoggedIn.loggedIn ||
+      !this.authService.isLoggedIn.emailVerified
+    ) {
       this.router.navigate(['/public']);
       return false;
     }

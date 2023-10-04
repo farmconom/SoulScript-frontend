@@ -12,7 +12,10 @@ export class NoLoggedIn implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    if (this.authService.isLoggedIn) {
+    if (
+      this.authService.isLoggedIn.loggedIn &&
+      this.authService.isLoggedIn.emailVerified
+    ) {
       this.router.navigate(['/']);
       return false;
     }
