@@ -16,7 +16,6 @@ const log = new Logger('sign-in.component');
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
-  providers: [MessageService],
 })
 export class SignInPage {
   @ViewChild('toggleCard', { static: false }) toggleCard!: ElementRef;
@@ -100,6 +99,8 @@ export class SignInPage {
 
   async onLoginSubmit() {
     if (this.loginForm.valid) {
+      this.auth.SetUserState(this.auth.getUserState);
+
       try {
         this.isLoginLoading = true;
         const email = this.loginForm.get('loginEmail')?.value;
@@ -261,5 +262,9 @@ export class SignInPage {
   closeSuccessSignUpDialog() {
     this.toggleSuccessSignUpDialog = false;
     window.location.reload();
+  }
+
+  closeVerifyEmailDialog() {
+    this.toggleVerifyEmailDialog = false;
   }
 }

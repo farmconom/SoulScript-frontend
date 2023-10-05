@@ -51,6 +51,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.SetUserState(result.user);
+        localStorage.setItem('user', JSON.stringify(result.user));
         this.firebaseAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['dashboard']);
@@ -81,10 +82,10 @@ export class AuthService {
     return this.firebaseAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        return 'Password reset email sent, check your inbox.';
       })
       .catch((error) => {
-        window.alert(error);
+        return error;
       });
   }
 
@@ -128,6 +129,28 @@ export class AuthService {
     } catch (error) {
       this.isTooManyReqSendVerifyEmail = true;
     }
+  }
+
+  async confirmPasswordReset(getCode: string, getPassword: string) {
+    return this.firebaseAuth
+      .confirmPasswordReset(getCode, getPassword)
+      .then(() => {
+        return 'Success';
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
+  async verifyEmail(getCode: string) {
+    return this.firebaseAuth
+      .applyActionCode(getCode)
+      .then(() => {
+        log.info('Verify Email Success');
+      })
+      .catch((error) => {
+        log.error(error);
+      });
   }
 
   async SignOut() {

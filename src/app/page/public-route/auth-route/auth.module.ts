@@ -5,13 +5,13 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { SignInPage } from './sign-in/sign-in.component';
 import { ForgotPasswordPage } from './forgot-password/forgot-password.page';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ResetPasswordPage } from './reset-password/reset-password.page';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
-  declarations: [SignInPage, ForgotPasswordPage, ResetPasswordPage],
+  declarations: [SignInPage, ForgotPasswordPage],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -20,5 +20,6 @@ import { ButtonModule } from 'primeng/button';
     DialogModule,
     ButtonModule,
   ],
+  providers: [MessageService],
 })
 export class AuthModule {}

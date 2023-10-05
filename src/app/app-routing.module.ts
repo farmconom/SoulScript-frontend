@@ -17,6 +17,14 @@ const routes: Routes = [
     canActivate: [NoLoggedIn],
   },
   {
+    path: 'action',
+    loadChildren: () =>
+      import('./page/verify-route/verify-page.module').then(
+        (m) => m.VerifyPageModule,
+      ),
+    canActivate: [NoLoggedIn],
+  },
+  {
     path: '404',
     loadChildren: () =>
       import('./page/not-found-page/not-found-page.module').then(

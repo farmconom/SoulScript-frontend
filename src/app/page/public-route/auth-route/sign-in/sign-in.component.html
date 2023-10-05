@@ -57,7 +57,7 @@
                           <i
                             *ngIf="isLoginLoading"
                             class="pi pi-spin pi-spinner"
-                            style="font-size: 1.2rem"
+                            style="font-size: 1.2rem; font-weight: 600"
                           ></i>
                         </button>
                         <p class="mb-0 mt-4 text-center">
@@ -138,7 +138,7 @@
                           <i
                             *ngIf="isSignUpLoading"
                             class="pi pi-spin pi-spinner"
-                            style="font-size: 1.2rem"
+                            style="font-size: 1.2rem; font-weight: 600"
                           ></i>
                         </button>
                         <div class="mt-2" style="font-size: 0.9rem">
@@ -203,7 +203,7 @@
       <p-button
         [disabled]="isSendVerifyEmail"
         icon="pi pi-check"
-        (click)="toggleVerifyEmailDialog = false"
+        (click)="closeVerifyEmailDialog()"
         label="Ok"
         styleClass="p-button-sm p-button-danger"
       ></p-button>

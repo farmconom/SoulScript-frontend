@@ -1,0 +1,51 @@
+<section
+  class="background"
+  [ngClass]="{ 'fade-in': isPageLoaded, 'fade-out': isNavigatingToAnotherPage }"
+>
+  <div class="container h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div style="width: 100%; max-width: 500px">
+        <div>
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+            "
+          >
+            <i
+              class="pi pi-check-circle text-success mb-3"
+              style="font-size: 5rem"
+            ></i>
+            <h1
+              class="text-center display-5 mb-5 text-dark"
+              style="font-weight: 500"
+            >
+              Email Verification
+            </h1>
+          </div>
+          <div>
+            <div class="form-group">
+              <label class="mb-4 text-secondary"
+                >Your email was verified. You can continue using the Soul
+                Script.</label
+              >
+            </div>
+            <div
+              class="mt-4 pt-1 d-flex justify-content-end align-items-center"
+            >
+              <button
+                type="submit"
+                class="btn btn-dark w-100"
+                (click)="redirectTo('/public')"
+              >
+                <span>Go To Sign Up</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
